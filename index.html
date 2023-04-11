@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-
+    
     <link rel="stylesheet" href="./style.css">
     <title>Formulário de Cartão de Crédito</title>
 </head>
@@ -33,7 +33,15 @@
                     type="text" 
                     id="cc-holder"
                     placeholder="Nome como está no cartão"
+                    required
                 >
+                <div class="warning">
+                    <img 
+                        src="https://i.ibb.co/7yY8KYN/warning.png" 
+                        alt="Ícone de alerta"
+                    >
+                    Nome do titular é obrigatório
+                </div>
             </div>
 
             <div class="col-2 flex">
@@ -72,5 +80,34 @@
         </section>
         <button>Adicionar Cartão</button>
     </form>
+
+
+    <!-- Imask Scrip -->
+    <script src="https://unpkg.com/imask"></script>
+    <script>
+        IMask(document.querySelector('#cc-cvv'), {
+            mask: '0000'
+        });
+
+        IMask(document.querySelector('#cc-number'), {
+            mask: '0000 0000 0000 0000'
+        });
+        
+        IMask(document.querySelector('#cc-validity'), {
+            mask: 'MM{/}YY',
+            blocks:{
+                MM: {
+                    mask: IMask.MaskedRange,
+                    from: 1,
+                    to: 12
+                },
+                YY: {
+                    mask: IMask.MaskedRange,
+                    from: String(new Date().getFullYear()).slice(2),
+                    to: String(new Date().getFullYear() + 10).slice(2)
+                }
+            }
+        })
+    </script>
 </body>
 </html>
